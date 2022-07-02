@@ -76,21 +76,41 @@ for (var i = 0; i < db.length; i++) {
     action.innerHTML = db[i].action;
 }
 
+
 function log_in(user) {
-    for (var i = 0; i < db.length; i++) {
+    var i=0;
+    for (i= 1; i < db.length; i++) {
         let row=table.rows[i];
         if (db[i].lender !== user && db[i].borrower === "") {
             
-            row.cells[5].innerHTML='<button>Borrow</button>';
+            row.cells[5].innerHTML='<button onClick="borrowBook()">Borrow</button>';
         } else if (db[i].borrower === user) {
-            row.cells[5].innerHTML='<button>Return</button>';
+            row.cells[5].innerHTML='<button onClick="returnBook()">Return</button>';
         }
         
 
     }
+    
+    var new_row=table.insertRow();
+    var id = new_row.insertCell(0);
+    var title = new_row.insertCell(1);
+    var author = new_row.insertCell(2);
+    var lender = new_row.insertCell(3);
+    var borrower = new_row.insertCell(4);
+    var action = new_row.insertCell(5);
+    id.innerHTML = i+1;
+    title.innerHTML = '<input type="text" placeholder="Enter title">';
+    author.innerHTML = '<input type="text" placeholder="Enter author">';
+    lender.innerHTML = user;
+    borrower.innerHTML = "";
+    action.innerHTML = '<button onClick="addBook()">Add</button>'; 
 }
 
 function logged_in_user() {
+    for (var i = 1; i < db.length; i++) {
+        let row=table.rows[i];
+    row.cells[5].innerHTML="";
+}
     var a = document.getElementById("sub").value;
     console.log(a)
     for (var i = 0; i < user_list.length; i++) {
